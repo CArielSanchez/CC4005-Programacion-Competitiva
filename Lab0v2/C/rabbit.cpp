@@ -5,7 +5,7 @@ int main(){
     int cases;
     cin>>cases;
 
-    int n[cases][4];
+    double n[cases][4];
 
     for (size_t i = 0; i < cases; i++)
     {
@@ -13,30 +13,18 @@ int main(){
     }
 
     int r[cases];
-    int a,b;
-    int sec = 0;
+    double sec = 0.0;
     for (size_t i = 0; i < cases; i++)
     {
-        if(n[i][0]==n[i][1]){
-            r[i] = 0;
+        sec = (n[i][1] - n[i][0]) / (n[i][2] + n[i][3]);
+
+        if((sec - (int) sec) == 0){
+
+            r[i] = sec;
         }else{
-            a=n[i][0]; //x
-            b=n[i][1]; //y
-            while(1){
-                a+= n[i][2];
-                b-= n[i][3];
-                sec++;
-                if(a == b){
-                    r[i] = sec;
-                    break;
-                }
-                if(a > b){
-                    r[i] = -1;
-                    break;
-                }
-            }
+            r[i] = -1;
         }
-        sec=0;
+        sec = 0;
     }
 
     for (size_t i = 0; i < cases; i++)

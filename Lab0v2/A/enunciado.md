@@ -20,7 +20,6 @@ Output the number of pieces of sausage that lay on the crust.
 
 # Examples
 
-
 Input
 
 8 4
