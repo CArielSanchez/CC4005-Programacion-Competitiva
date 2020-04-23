@@ -12,6 +12,13 @@ ull factorial(ull n)
     return r;
 }
 
+ull factorial2(ull n)
+{
+    ull r = 0;
+    r += n*log(n) - n + 0.5*log(n*2*M_PI);
+    return r;
+}
+
 ull exponencial(ull a, ull n)
 {
     ull r = n * log2(a);
@@ -40,17 +47,13 @@ int main(){
         B = a[z]*4;
 
         while (A != B){
-            //cout<<"A: "<<A<<" B: "<<B<<"\n";
-
             mid = A + (B - A)/2;
-            //cout<<"MID: "<<mid<<"\n";
-
             exp = exponencial(a[z], mid);
-            //cout<<"EXP : "<<exp<<"\n";
-
-            fact = factorial(mid);
-            //cout<<"FACT: "<<fact<<"\n";
-            
+            fact = factorial2(mid);
+            cout<<"A: "<<A<<" B: "<<B<<"\n";
+            cout<<"MID: "<<mid<<"\n";
+            cout<<"EXP : "<<exp<<"\n";
+            cout<<"FACT: "<<fact<<"\n";
 
             if( fact >= exp )
             {
@@ -62,11 +65,11 @@ int main(){
             }
         }
 
-        fact = factorial(A);
-        //cout<<"FACT FINAL: "<<fact<<"\n";
+        fact = factorial2(A);
         exp = exponencial(a[z], A);
-        //cout<<"EXP FINAL : "<<exp<<"\n";
-
+        cout<<"EXP FINAL : "<<exp<<"\n";
+        cout<<"FACT FINAL: "<<fact<<"\n";
+        
         if( exp > fact ) // No hay un n entre A y B que cumpla la condicion
         {
             cout<<"ERROR\n";
