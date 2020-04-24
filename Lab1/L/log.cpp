@@ -74,7 +74,6 @@ int main(){
             mid = A + (B - A)/2;
             exp = log(a[z]);
 
-
             if(C[mid] == 0){ // Si la suma de log(i) NO está calculada hasta ese punto
                 fact = C[highCalc]; // Rescato valor calculado, pero caso vale 0
                 now = highCalc + 1; // Muevo puntero
@@ -103,15 +102,12 @@ int main(){
                 A = mid + 1; // Subir
             }
         }
-
-
         a[z] = A; // Siempre se cumple ahora que n max es 2718274 + 1 (respuesta de 1.000.000)
     }
 
-    //cout<<"\n";
     for (int i = 0; i < t; i++)
     {
-        cout<<a[i]<<"\n";
+        cout<< std::setprecision(33) <<a[i]<<"\n";
     }
     
     return 0;
