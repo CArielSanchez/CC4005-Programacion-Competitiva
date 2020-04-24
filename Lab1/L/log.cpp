@@ -46,8 +46,8 @@ ull exponencial(ull a, ull n)
 }
 
 int main(){
-    unsigned int A ;
-    unsigned int B ;
+    unsigned int A = 1;
+    unsigned int B = 2718274 + 1;;
     unsigned int mid;
     ull fact;
     ull exp;
@@ -61,6 +61,14 @@ int main(){
         cin>>a[i];
     }
     
+    vector<double> C(B);
+    for (int i = 0; i < B; i++)
+    {
+        C[i] = 0;
+    }
+    int highCalc = 1;
+    int now ;
+
     for(int z = 0; z < t; z++) 
     {
         A = 1;
@@ -68,15 +76,29 @@ int main(){
 
         while (A != B){
             mid = A + (B - A)/2;
-            // exp = exponencial(a[z], mid); // Exp es sólo calcular log(a) => + rápido que fact
             exp = log(a[z]);
-            // fact = factorial(mid);
+
+
+            if(C[mid] == 0){ // Si la suma de log(i) NO está calculada hasta ese punto
+                fact = C[highCalc]; // Rescato valor calculado, pero caso vale 0
+                now = highCalc + 1; // Muevo puntero
+                for (int i = now; i <= mid; i++) // Calculo hasta donde necesito
+                {
+                    C[i] = log(i) + C[i-1];
+                }
+                highCalc = mid; // Ahora calcule hasta highCalc
+
+                fact = C[mid] / (double) mid; // SUM log(i->N) / N
+                          
+            }else{ // Si ya está calculada, la saco simplemente
+                fact = C[mid] / (double) mid;
+            }
             // cout<<"A: "<<A<<" B: "<<B<<"\n";
             // cout<<"MID: "<<mid<<"\n";
             // cout<<"EXP : "<<exp<<"\n";
             // cout<<"FACT: "<<fact<<"\n";
 
-            if( factorial_comp(mid, exp) )
+            if( fact >= exp )
             {
                 B = mid; // Bajamos
             }
@@ -86,20 +108,8 @@ int main(){
             }
         }
 
-        // fact = factorial(A);
-        // exp = exponencial(a[z], A);
-        // // cout<<"EXP FINAL : "<<exp<<"\n";
-        // // cout<<"FACT FINAL: "<<fact<<"\n";
-        
-        // if( exp > fact ) // No hay un n entre A y B que cumpla la condicion
-        // {
-        //     cout<<"ERROR\n";
-        //     return 1;
-        // }
-        // else
-        // {
-            a[z] = A; // A cumple
-        // }
+
+        a[z] = A; // Siempre se cumple ahora que n max es 2718274 + 1 (respuesta de 1.000.000)
     }
 
     //cout<<"\n";
