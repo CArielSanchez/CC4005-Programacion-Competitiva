@@ -61,11 +61,7 @@ int main(){
         cin>>a[i];
     }
     
-    vector<double> C(B);
-    for (int i = 0; i < B; i++)
-    {
-        C[i] = 0;
-    }
+    vector<double> C(B, 0);
     int highCalc = 1;
     int now ;
 
