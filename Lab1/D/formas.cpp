@@ -1,17 +1,17 @@
 #include<bits/stdc++.h>
 using namespace std;
-     
+typedef long long ull;
      
 int main(void)
 {
-    int n;
-    int formas=0;
+    ull n;
+    ull formas=0;
 
     cin>>n;
-    vector<int> a(n);
-    vector<int> sumaAcum(n);
-    vector<int> dosKIndices;
-    for(int i=0; i < n ;i++){
+    vector<ull> a(n);
+    vector<ull> sumaAcum(n);
+    vector<ull> dosKIndices;
+    for(ull i=0; i < n ;i++){
         cin >> a[i];
         if(i == 0){
             sumaAcum[0] = a[0];
@@ -22,7 +22,7 @@ int main(void)
 
     if (sumaAcum[n-1] % 3 == 0)
     {
-        int saco = sumaAcum[n-1] / 3;
+        ull saco = sumaAcum[n-1] / 3;
 
         for (size_t i = 0; i < n; i++)
         {
@@ -34,9 +34,9 @@ int main(void)
         for (size_t i = 0; i < n; i++)
         {
             if(sumaAcum[i] == saco){
-                int A = 0;
-                int B = dosKIndices.size();
-                int mid;
+                ull A = 0;
+                ull B = dosKIndices.size();
+                ull mid;
                 while(A < B){
                     mid = A + (B-A)/2;
                     if( dosKIndices[mid] > i){ // Sirve este indice, busco menos

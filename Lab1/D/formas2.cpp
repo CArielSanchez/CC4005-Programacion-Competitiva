@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-     
+typedef long long ull;
      
 int main(void)
 {
@@ -8,11 +8,11 @@ int main(void)
     int formas=0;
 
     cin>>n;
-    vector<int> a(n);
-    vector<int> sumaAcum(n);
-    vector<int> dosKIndices(n, 0);
-    vector<int> suma2kfinal(n, 0);
-    for(int i=0; i < n ;i++){
+    vector<ull> a(n);
+    vector<ull> sumaAcum(n);
+    vector<ull> dosKIndices(n, 0);
+    vector<ull> suma2kfinal(n, 0);
+    for(ull i=0; i < n ;i++){
         cin >> a[i];
         if(i == 0){
             sumaAcum[0] = a[0];
@@ -23,37 +23,37 @@ int main(void)
 
     if (sumaAcum[n-1] % 3 == 0)
     {
-        int saco = sumaAcum[n-1] / 3;
+        ull saco = sumaAcum[n-1] / 3;
 
-        for (int i = 0; i < n; i++)
+        for (ull i = 0; i < n; i++)
         {
-            if(sumaAcum[i] == 2*saco && i != n-1){
+            if(sumaAcum[i] == 2*saco ){ // && i != n-1
                 dosKIndices[i] = 1;
             }
         }
 
-        // for (size_t i = 0; i < n; i++)
-        // {
-        //     cout<<dosKIndices[i]<<" ";
-        // }
-        // cout<<"\n";
+        for (size_t i = 0; i < n; i++)
+        {
+            cout<<dosKIndices[i]<<" ";
+        }
+        cout<<"\n";
 
         suma2kfinal[n-1] = dosKIndices[n-1];
-        for (int j = n-2; j >= 0; j--)
+        for (ull j = n-2; j >= 0; j--)
         {
             suma2kfinal[j] = dosKIndices[j] + suma2kfinal[j+1];
         }
 
-        // for (int i = 0; i < n; i++)
-        // {
-        //     cout<<suma2kfinal[i]<<" ";
-        // }
-        // cout<<"\n";
+        for (int i = 0; i < n; i++)
+        {
+            cout<<suma2kfinal[i]<<" ";
+        }
+        cout<<"\n";
 
-        for (int i = 0; i < n-2; i++)
+        for (ull i = 0; i < n-2; i++)
         {
             if(sumaAcum[i] == saco){
-                formas += suma2kfinal[i+1];
+                formas += suma2kfinal[i+i];
             }
         }
         
