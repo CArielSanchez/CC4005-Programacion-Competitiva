@@ -16,16 +16,9 @@ int main(void)
         if(i == 0){
             sumaAcum[0] = a[0];
         }else{
-            //cout<<"a[i]: "<<a[i]<<" sumaAcum{i-1]: "<<sumaAcum[i-1]<<"\n";
             sumaAcum[i] = a[i] + sumaAcum[i-1];
         }
     }
-
-    // for (size_t i = 0; i < n; i++)
-    // {
-    //     cout<<sumaAcum[i]<<" ";
-    // }
-    // cout<<"aa\n";
 
     if (sumaAcum[n-1] % 3 == 0)
     {
@@ -38,22 +31,32 @@ int main(void)
             }
         }
 
-        // for (size_t i = 0; i < dosKIndices.size(); i++)
-        // {
-        //     cout<<dosKIndices[i]<<" ";
-        // }
-        // cout<<"\n";
-        
-
         for (size_t i = 0; i < n; i++)
         {
             if(sumaAcum[i] == saco){
-                for (size_t j = 0; j < dosKIndices.size(); j++)
-                {
-                    if( dosKIndices[j] > i){
-                        formas++;
+                int A = 0;
+                int B = dosKIndices.size();
+                int mid;
+                while(A < B){
+                    mid = A + (B-A)/2;
+                    if( dosKIndices[mid] > i){ // Sirve este indice, busco menos
+                        B = mid;
+                    }else{
+                        A = mid+1;
                     }
+
                 }
+                if(dosKIndices[A] > i){
+                    formas+= dosKIndices.size() - A;
+                }
+
+                // for (size_t j = 0; j < dosKIndices.size(); j++)
+                // {
+                //     if( dosKIndices[j] > i){
+                //         formas+= dosKIndices.size() - j;
+                //         break;
+                //     }
+                // }
                 
             }
         }
