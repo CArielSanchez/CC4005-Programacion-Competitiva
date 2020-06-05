@@ -7,7 +7,7 @@ ll mod = pow(10, 9) + 7;
 ll gcd(ll a,ll b) {
     ll R;
     while ((a % b) > 0)  {
-        cout<<"gcd("<<a<<","<<b<<")\n";
+        //cout<<"gcd("<<a<<","<<b<<")\n";
         R = (a % b);
         a = b;
         b = R;
@@ -29,16 +29,16 @@ int main(){
         sum += nums[i];
     }
     //cout<<"sum: "<<sum<<"\n";
-    ll t = (ll) pow(x, sum) % mod;
+    ll t = (ll) pow(x, sum);
+    
     ll s = 0;
-
     for (ll i = 0; i < n; i++)
     {
-        s += (ll) pow(x, sum - nums[i]) % mod;
+        s += (ll) pow(x, sum - nums[i]);
     }
     
-    cout<<s<<"\n";
-    cout<<t<<"\n";
+    //cout<<s<<"\n";
+    //cout<<t<<"\n";
 
     ll r = gcd(t, s);
     cout<<r % mod;
