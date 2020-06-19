@@ -15,9 +15,12 @@ void criba(){
     for(int i=2; i< N_primos; i++){
         primos[i] = -1; // -1 === primo
     }
+
     for(int i=2; i< N_primos; i++){
-        for(int j=2; i*j < N_primos; j++){
-            primos[i*j] = i; // Pongo primo más grande que lo divide
+        if(primos[i] == -1){
+            for(int j=2; i*j < N_primos; j++){
+                primos[i*j] = i; // Pongo primo más grande que lo divide
+            }
         }
     }
 }
@@ -67,17 +70,15 @@ int main(){
     for(int i = 0; i< 10000001; i++){
         if(primos[i] != -1){ // Si no es primo, no cuenta para [l, r]
             F[i] = 0;
-        }else{               // Es primo
-            F[i] = 0;
-            for(int j = 0; j< n; j++){ // Itero sobre todos los X
-
-                for(int k = 0; k < fp_x[j].size(); k++){  // Recorro su fact prima
-
-                    if(fp_x[j][k] == i){ // Si aparesco en la factorización prima de X_k, sumo y salgo
-                        F[i]++;
-                        break;
-                    }
-                }
+        }
+    }
+    for (int j = 0; j < n; j ++){ // Itero sobre todos los X
+        for (int k = 0; k < fp_x[j].size(); k ++){// Recorro su fact prima
+            if( k > 0 && F[fp_x[j][k]] != F[fp_x[j][k-1]]){
+                F[fp_x[j][k]] ++;// Si aparesco en la factorización prima de X_k, sumo y salgo
+            }
+            if (k ==0){
+                F[fp_x[j][k]] ++;
             }
         }
     }
