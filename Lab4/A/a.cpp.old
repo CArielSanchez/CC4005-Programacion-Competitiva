@@ -1,0 +1,218 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+
+
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    /*************** Input ************************/
+    int n, m, k = 0;
+    cin>>n>>m>>k;
+    int matrix[n*m][m*m];
+
+    for (int i = 0; i < n*m; i++)
+    {
+        for (int j = 0; j < n*m; j++)
+        {
+            matrix[i][j] = 0;
+        }
+        
+    }
+    
+
+    string a[n];
+
+    for (int i = 0; i < n; i++)
+    {
+        cin>>a[i];
+    }
+    //cout<<"input";
+
+    string b[n];
+    for (int i = 0; i < n; i++)
+    {
+        b[i] = a[i];
+    }
+    
+    int eliminados = 0;
+    while(eliminados < k){
+        for (int i = 0; i < n*m; i++)
+    {
+        for (int j = 0; j < n*m; j++)
+        {
+            matrix[i][j] = 0;
+        }
+        
+    }
+
+        /*************** Rellenar matriz de adyacencia ************************/
+
+        // Recorro las n filas del string (i) 
+        for (int i = 0; i < n; i++)
+        {
+            if( i == 0){ // Primera/última fila
+                // Recorro las m columnas
+                for (int j = 0; j < m-1; j++)
+                {
+                    char s = a[i].at(j); // Saco el caracter
+                    // cout<<s<<"\n";
+                    if(s == 46){// si es empty
+                        if(i< m-1){// No revisar el ultimo
+                            char l = a[i].at(j+1); // Veo el siguiente en la fila
+                            if(l == 46){ // Si tambien es .
+                                // cout<<"i"<<i<<"\n";
+                                // cout<<"j"<<j<<"\n";
+                                // cout<<"i*m+j"<<i*m + j<<"\n";
+                                // cout<<"i*m+j+1"<<i*m + j+1<<"\n";
+                                matrix[i*m + j][i*m + j + 1] = 1; // Marcar 1 en la matriz
+                                matrix[i*m + j +1 ][i*m + j] = 1;
+                            }
+                        }
+                    }
+                }
+            }else{ // Caso general (arriba y abajo)
+                // Recorro las m columnas
+                for (int j = 0; j < m; j++)
+                {   
+                    char yo = a[i].at(j); // Saco el caracter
+                    char up = a[i-1].at(j);
+                    if(j == m-1){
+                        if(up == yo && yo == 46){
+                            matrix[i*m+j][(i-1)*m+j] = 1;
+                            matrix[(i-1)*m+j][i*m+j] = 1;
+                        }
+                    }else{
+                        char next = a[i].at(j+1);
+                        if(yo == 46){
+                            if(up == yo){
+                                matrix[i*m+j][(i-1)*m+j] = 1;
+                                matrix[(i-1)*m+j][i*m+j] = 1;
+                            }
+                            if(next == yo){
+                                matrix[i*m+j][i*m+j+1] = 1;
+                                matrix[i*m+j+1][i*m+j] = 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //cout<<"matrix";
+
+
+        // cout<<"  ";
+        // for (int i = 0; i < m*n; i++)
+        // {
+        //     cout<<i<<" ";
+        // }
+        // cout<<"\n";
+        
+        // for (int i = 0; i < n*m; i++)
+        // {   
+        //     cout<<i<<" ";
+        //     for (int j = 0; j < n*m; j++)
+        //     {
+        //         cout<<matrix[i][j]<<" ";
+        //     }
+        //     cout<<"\n";
+        // }
+        // cout<<"\n";
+
+    /*************** Eliminar k nodos libres ************************/
+    
+        int anterior = eliminados;
+        //cout<<"eliminados: "<<eliminados<<"\n";
+        //cout<<"n:"<<n<<"\n";
+        //cout<<"m:"<<m<<"\n";
+        for (int i = 0; i < n*m; i++)
+        {
+            int suma =0;
+            for (int j = 0; j < m*n; j++) // Recorrer hasta diagonal no incluida
+            {   
+                //cout<<"i:"<<i<<"\n";
+                //cout<<"j:"<<j<<"\n";
+                //cout<<"matrix:"<<matrix[i][j]<<"\n";
+                suma += matrix[i][j];
+                if(suma >= 2){
+                    break;
+                }
+            }
+            //cout<<"suma:"<<suma<<"\n";
+            if(suma == 1 && b[i/m].at(i%m) != 35){
+                //cout<<"suma=1";
+                eliminados++;
+                b[i/m].at(i%m) = 'X';
+                a[i/m].at(i%m) = '#';
+            }
+            if(eliminados == k){
+                break;
+            }
+        }
+        bool asd = false;
+        if(eliminados == anterior && eliminados < k){ // No eliminé nada
+            for (int i = 0; i < n*m; i++)
+        {
+            for (int j = 0; j < m*n; j++) // Recorrer hasta diagonal no incluida
+            {   
+                
+                if(matrix[i][j] == 1 && b[i/m].at(i%m) != 35){
+                    asd = true;
+                    eliminados++;
+                    b[i/m].at(i%m) = 'X';
+                    a[i/m].at(i%m) = '#';
+                    break;
+                }
+            }
+            if(asd){
+                break;
+            }
+
+        }
+        }
+
+        if(eliminados == k){
+                break;
+        }
+
+
+    //     for (int i = 0; i < n; i++)
+    // {
+    //     for (int j = 0; j < m; j++)
+    //     {
+    //         cout<<b[i].at(j);
+    //     }
+    //     cout<<"\n";
+    // }
+    // cout<<"\n";
+
+    // for (int i = 0; i < n; i++)
+    // {
+    //     for (int j = 0; j < m; j++)
+    //     {
+    //         cout<<a[i].at(j);
+    //     }
+    //     cout<<"\n";
+    // }
+
+    }
+    //cout<<"elimina";
+    /*************** Output ************************/
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            cout<<b[i].at(j);
+        }
+        cout<<"\n";
+    }
+    
+    
+    return 0;
+}
+
+
