@@ -1,25 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-typedef unsigned short int ush;
+typedef long long ll;
 
-typedef pair<ush, ush> ii;
+typedef pair<ll, ll> ii;
 typedef vector<ii> vii;
 typedef vector<vector<ii> > wgraph;
-typedef vector<ush> vi;
+typedef vector<ll> vi;
 
-void Dijsktra(int s, wgraph &M, vi &dist, vi &p) {
+void Dijsktra(ll s, wgraph &M, vi &dist, vi &p) {
 	dist[s] = 0;
 	priority_queue<ii, vector<ii>, greater<ii> > pq; pq.push(ii(0, s));
 
 	while (!pq.empty()) {
 		ii front = pq.top(); pq.pop();
-		ush d = front.first, u = front.second;
+		ll d = front.first, u = front.second;
 		if (d > dist[u]) continue;
 		
 		//cout << u+1 << endl;
 
-		for (int j = 0; j < M[u].size(); j++) {
+		for (ll j = 0; j < M[u].size(); j++) {
 			ii v = M[u][j];
 			if (dist[u] + v.first < dist[v.second]) {
 				dist[v.second] = dist[u] + v.first;
@@ -32,20 +32,27 @@ void Dijsktra(int s, wgraph &M, vi &dist, vi &p) {
 }
 
 int main(){
-    ush t;
+    ll t;
     cin>>t;
-    while(t){
+    ll ans[t];
+    ll i = 0;
+    ll topleft = 0;
+
+    while(i < t){
         //// INPUT
-        ush n,m;
+        ll n,m;
         cin>>n>>m;
         wgraph grafo(n*m, vector<ii>());
-        ush w;
+        ll w;
 
-        for (ush i = 0; i < n; i++)
+        for (ll i = 0; i < n; i++)
         {
-            for (ush j = 0; j < m; j++)
+            for (ll j = 0; j < m; j++)
             {
                 cin>>w;
+                if(i==0 && j ==0){
+                    topleft = w;
+                }
 
                 if(j < m - 1){
                     grafo[i*m +j + 1].push_back(ii(w, i*m + j));    // siguiente -> yo
@@ -68,18 +75,25 @@ int main(){
         }
         //// DIJSKTRA
         vi distancia;
-        distancia.assign(n*m, INT_MAX/2);
+        distancia.assign(n*m, INT_MAX);
         vi padre;
-        padre.assign(n*m, INT_MAX/2);
+        padre.assign(n*m, INT_MAX);
         Dijsktra(0, grafo, distancia, padre);
         // for (int i = 0; i < n*m; i++)
         // {
         //     cout<<padre[i]<<" ";
         // }
-        cout<<distancia[n*m-1]  << endl;;
-
-        t--;
+        //cout<<distancia[n*m-1]  << endl;
+        ans[i] = distancia[n*m-1] + topleft;
+        i++;
+        //t--;
     }
+    for (ll j = 0; j < t; j++)
+    {
+        cout<<ans[j]<< endl;
+    }
+    
+
     return 0;
 }
 
